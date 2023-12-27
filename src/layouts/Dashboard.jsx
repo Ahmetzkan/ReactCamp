@@ -21,11 +21,11 @@ export default function Dashboard() {
                 <Route exact path = "/" component = {ProductList}/>
                 <Route exact path = "/products" component = {ProductList}/>
                 //kullanilan parametre ismi
-                <Route path = "/products/:name" component = {ProductDetail}/>
+                <Route path = "/products/:id" component = {ProductDetail}/>
                 <Route path = "/cart/" component = {CartDetail}/>
             </Routes>
 
-       
+        <ProductList/>
           </Grid.Column>
         </Grid.Row>
       </Grid>

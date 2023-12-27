@@ -8,7 +8,7 @@ export default function ProductList() {
 
     useEffect(() => {
         let productService = new ProductService()
-        productService.getProducts().then(result => setProducts(result.data.items))
+        productService.getProducts().then(result => setProducts(result.data))
     }, [])//sondaki ,[] koyulmazsa çalışır ama network sürekli istekte bulunur
 
 
@@ -30,12 +30,10 @@ export default function ProductList() {
     <Table.Body>
     {
     products.map((product)=>(
-      <Table.Row key={product.id}>
-        <Table.Cell><Link to={`/products/${product.id}`}>{product.productName}</Link></Table.Cell>
+      <Table.Row key={product.productId}>
+        <Table.Cell><Link to={`/products/${product.productId}`}>{product.productName}</Link></Table.Cell>
         <Table.Cell>{product.unitPrice}</Table.Cell>
         <Table.Cell>{product.unitsInStock}</Table.Cell>
-        <Table.Cell>{product.quantityPerUnit}</Table.Cell>
-        <Table.Cell>{product.categoryName}</Table.Cell>   
       </Table.Row>
     ))
 }
