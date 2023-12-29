@@ -1,3 +1,1 @@
-
-
-export const cartItem =[]
+export const cartItems = []
