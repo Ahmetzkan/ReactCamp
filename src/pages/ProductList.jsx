@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Icon, Menu, Table } from 'semantic-ui-react'
+import { Button, Icon, Menu, Table } from 'semantic-ui-react'
 import ProductService from '../services/productService'
 import { Link, NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../store/actions/cartActions';
+import {toast} from 'react-toastify'
 
 export default function ProductList() {
+    const dispatch = useDispatch() //
     const [products, setProducts] = useState([]);//başarılı olursa her result için bütün datanın içindeki datayı getir
 
     useEffect(() => {
@@ -11,7 +15,10 @@ export default function ProductList() {
         productService.getProducts().then(result => setProducts(result.data))
     }, [])//sondaki ,[] koyulmazsa çalışır ama network sürekli istekte bulunur
 
-
+    const handleAddtoCart=(product)=>{
+      dispatch(addToCart(product))
+      toast.success(`${product.productName} added to cart`)
+    }
 
   return (
     <div>
@@ -23,7 +30,7 @@ export default function ProductList() {
         <Table.HeaderCell>Unit in Stock</Table.HeaderCell>
         <Table.HeaderCell>Description</Table.HeaderCell>
         <Table.HeaderCell>Category</Table.HeaderCell>
-        
+        <Table.HeaderCell> </Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
@@ -34,6 +41,8 @@ export default function ProductList() {
         <Table.Cell><Link to={`/products/${product.productId}`}>{product.productName}</Link></Table.Cell>
         <Table.Cell>{product.unitPrice}</Table.Cell>
         <Table.Cell>{product.unitsInStock}</Table.Cell>
+        
+        <Table.Cell><Button onClick={()=>handleAddtoCart(product)}>Add to Cart</Button></Table.Cell>
       </Table.Row>
     ))
 }

@@ -5,14 +5,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { configureStore } from './store/configureStore';
+import "react-toastify/ReactToastify.min.css";
 
+const store =configureStore()
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //<React.StrictMode/>
   //Rout işlemini App de destekle
-  <BrowserRouter>
-     <App/>
-  </BrowserRouter>
+  //Redux altyapısı ile destekle
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
